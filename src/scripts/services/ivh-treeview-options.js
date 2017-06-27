@@ -107,7 +107,12 @@ angular.module('ivh.treeview').provider('ivhTreeviewOptions', [
       '</div>'
     ].join('\n')
     .replace(new RegExp('{{', 'g'), symbolStart)
-    .replace(new RegExp('}}', 'g'), symbolEnd)
+    .replace(new RegExp('}}', 'g'), symbolEnd),
+
+    /**
+     * Whether or not children should be selected when selecting a parent node
+     */
+    selectChildren: true
   };
 
   /**

@@ -981,11 +981,17 @@ angular.module('ivh.treeview')
           // I've been looking for you all my life
           proceed = false;
 
-          var cb = isSelected ?
+          var cb = isSelected && opts.selectChildren ?
             makeSelected.bind(opts) :
             makeDeselected.bind(opts);
 
           ivhTreeviewBfs(n, opts, cb);
+
+          if (!opts.selectChildren) {
+            n[opts.selectedAttribute] = false;
+            n[opts.indeterminateAttribute] = true;
+          }
+
           ng.forEach(p, validateParent.bind(opts));
         }
 
@@ -1413,7 +1419,12 @@ angular.module('ivh.treeview').provider('ivhTreeviewOptions', [
       '</div>'
     ].join('\n')
     .replace(new RegExp('{{', 'g'), symbolStart)
-    .replace(new RegExp('}}', 'g'), symbolEnd)
+    .replace(new RegExp('}}', 'g'), symbolEnd),
+
+    /**
+     * Whether or not children should be selected when selecting a parent node
+     */
+    selectChildren: true
   };
 
   /**

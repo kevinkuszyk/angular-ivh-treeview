@@ -71,6 +71,14 @@ describe('Service: ivhTreeviewMgr', function() {
       expect(flatcap.selected).toBe(true);
     });
 
+    it('should not select child nodes when selectChildren option is false', function() {
+      ivhTreeviewMgr.select(tree, hats, { selectChildren: false });
+      expect(hats.__ivhTreeviewIndeterminate).toBe(true);
+      expect(hats.selected).toBe(false);
+      expect(fedora.selected).toBe(false);
+      expect(flatcap.selected).toBe(false);
+    });
+
     it('should select nodes by id', function() {
       ivhTreeviewMgr.select(tree, 'hats');
       expect(fedora.selected).toBe(true);

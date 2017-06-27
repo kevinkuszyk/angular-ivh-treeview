@@ -125,11 +125,17 @@ angular.module('ivh.treeview')
           // I've been looking for you all my life
           proceed = false;
 
-          var cb = isSelected ?
+          var cb = isSelected && opts.selectChildren ?
             makeSelected.bind(opts) :
             makeDeselected.bind(opts);
 
           ivhTreeviewBfs(n, opts, cb);
+
+          if (!opts.selectChildren) {
+            n[opts.selectedAttribute] = false;
+            n[opts.indeterminateAttribute] = true;
+          }
+
           ng.forEach(p, validateParent.bind(opts));
         }
 
